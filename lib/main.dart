@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:piwigo_ng/services/BackgroundFetchTask.dart';
 import 'package:piwigo_ng/services/ThemeProvider.dart';
 import 'package:piwigo_ng/services/UploadStatusProvider.dart';
 import 'package:piwigo_ng/views/RootCategoryViewPage.dart';
@@ -18,6 +19,7 @@ void main() async {
   ));
   await getSharedPreferences();
   initLocalNotifications();
+  await initializeService();
 
   runApp(
     ChangeNotifierProvider(
@@ -26,7 +28,7 @@ void main() async {
         return ChangeNotifierProvider(
           create: (context) => UploadStatusNotifier(),
           builder: (context, _) {
-            return MyApp();
+            return BackgroundApp();
           },
         );
       },
